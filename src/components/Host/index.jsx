@@ -1,17 +1,12 @@
 import React from "react";
+
 import Account from "../Account";
+import Profile from "../Profile";
 
 const Host = () => {
   return (
-    <main class="main bg-dark">
-      <div class="header">
-        <h1>
-          Welcome back
-          <br />
-          Tony Jarvis!
-        </h1>
-        <button class="edit-button">Edit Name</button>
-      </div>
+    <main className="main bg-dark">
+      <Profile />
       <h2 class="sr-only">Accounts</h2>
       <Account
         title="Argent Bank Checking (x8349)"

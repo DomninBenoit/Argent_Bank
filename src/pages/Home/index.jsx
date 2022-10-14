@@ -11,8 +11,8 @@ const Home = () => {
     <div>
       <Header />
       <Banner />
-      <section class="features">
-        <h2 class="sr-only">Features</h2>
+      <section className="features">
+        <h2 className="sr-only">Features</h2>
         <Features
           icon={Chat}
           title="You are our #1 priority"

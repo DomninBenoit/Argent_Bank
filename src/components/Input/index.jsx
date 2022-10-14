@@ -4,14 +4,14 @@ const Input = ({ label, type, name, classname }) => {
   return (
     <>
       {type !== "checkbox" ? (
-        <div class={classname}>
-          <label for={name}>{label}</label>
+        <div className={classname}>
+          <label htmlFor={name}>{label}</label>
           <input type={type} id={name} />
         </div>
       ) : (
-        <div class={classname}>
+        <div className={classname}>
           <input type={type} id={name} />
-          <label for={name}>{label}</label>
+          <label htmlFor={name}>{label}</label>
         </div>
       )}
     </>

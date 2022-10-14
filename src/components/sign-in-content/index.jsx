@@ -1,22 +1,26 @@
 import { postLogin } from "../../services/services";
 import Input from "../Input";
 import { useDispatch } from "react-redux";
-import { setToken } from "../../redux/actions";
+import { SET_TOKEN } from "../../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 const SignInContent = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
     const response = await postLogin(
       event.target["username"].value,
       event.target["password"].value
     );
-    dispatch(setToken(response.body.token));
+    dispatch(SET_TOKEN(response.body.token));
+    navigate("/user");
   };
+
   return (
-    <main class="main bg-dark">
-      <section class="sign-in-content">
-        <i class="fa fa-user-circle sign-in-icon"></i>
+    <main className="main bg-dark">
+      <section className="sign-in-content">
+        <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
         <form onSubmit={handleSubmit}>
           <Input

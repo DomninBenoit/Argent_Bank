@@ -1,3 +1,5 @@
+const apiUrl = process.env.API_URL;
+
 /**
  * fetch for API data access and error handling
  * @param {object} url
@@ -60,17 +62,14 @@ export async function postSignup(email, password, firstName, lastName) {
  * @returns profile data
  */
 export async function postProfile(token) {
-  const response = await customFetch(
-    "http://localhost:3001/api/v1/user/profile",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-  return response.data.body;
+  const response = await fetch(`http://localhost:3001/api/v1/user/profile`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.json();
 }
 
 /**
@@ -78,14 +77,15 @@ export async function postProfile(token) {
  * @param {*} token
  * @returns data update
  */
-export async function putProfile(token) {
+export async function putProfile(token, email, password, firstName, lastName) {
   const response = await customFetch(
-    "http://localhost:3001/api/v1/user/profile",
+    `http://localhost:3001/api/v1/user/profile`,
     {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
+        body: JSON.stringify({ email, password, firstName, lastName }),
       },
     }
   );
