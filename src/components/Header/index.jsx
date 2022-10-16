@@ -1,7 +1,7 @@
 import Logo from "../../assets/argentBankLogo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { LOG_OUT } from "../../redux/actions";
+import { logOut } from "../../redux/actions";
 import { getUserName } from "../../redux/selectors";
 
 const Header = () => {
@@ -9,8 +9,8 @@ const Header = () => {
   const user = useSelector(getUserName);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const logOut = () => {
-    dispatch(LOG_OUT());
+  const loginOut = () => {
+    dispatch(logOut());
     navigate("/");
   };
   return (
@@ -36,7 +36,7 @@ const Header = () => {
             <i className="fa fa-user-circle"></i>
             {user.firstname}
           </Link>
-          <button className="main-nav-item" onClick={logOut}>
+          <button className="main-nav-item" onClick={loginOut}>
             <i className="fa fa-sign-out"></i>
             Sign Out
           </button>

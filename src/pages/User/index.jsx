@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { postProfile } from "../../services/services";
 import { useDispatch } from "react-redux";
-import { SET_PROFILE } from "../../redux/actions";
+import { setProfile } from "../../redux/actions";
 
 const User = () => {
   const token = useSelector((state) => state.token);
@@ -13,8 +13,7 @@ const User = () => {
   useEffect(() => {
     if (token) {
       postProfile(token).then((response) => {
-        console.log(response);
-        dispatch(SET_PROFILE(response.body));
+        dispatch(setProfile(response.body));
       });
     }
   });

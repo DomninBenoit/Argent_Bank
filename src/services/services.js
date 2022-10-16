@@ -8,7 +8,7 @@ const apiUrl = process.env.API_URL;
 async function customFetch(url) {
   try {
     const response = await fetch(url);
-    if (response.status !== 200) {
+    if (response.status >= 200 && response.status < 300) {
       return new Error("Problème d'accès aux données de l'API");
     }
     return response.json();
@@ -77,17 +77,17 @@ export async function postProfile(token) {
  * @param {*} token
  * @returns data update
  */
-export async function putProfile(token, email, password, firstName, lastName) {
-  const response = await customFetch(
-    `http://localhost:3001/api/v1/user/profile`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-        body: JSON.stringify({ email, password, firstName, lastName }),
-      },
-    }
-  );
-  return response.data.body;
+export async function putProfile(token, payload) {
+  const response = await fetch(`http://localhost:3001/api/v1/user/profile`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+      body: JSON.stringify({
+        firstName: payload.firstName,
+        lastName: payload.lastName,
+      }),
+    },
+  });
+  return response.json();
 }

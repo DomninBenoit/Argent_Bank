@@ -1,13 +1,13 @@
-export const SET_TOKEN = (token) => ({
+export const setToken = (token) => ({
   type: "SET_TOKEN",
   payload: token,
 });
 
-export const LOG_OUT = () => ({
+export const logOut = () => ({
   type: "LOG_OUT",
 });
 
-export const SET_PROFILE = (payload) => ({
+export const setProfile = (payload) => ({
   type: "SET_PROFILE",
   payload: payload,
 });

@@ -1,7 +1,7 @@
 import { postLogin } from "../../services/services";
 import Input from "../Input";
 import { useDispatch } from "react-redux";
-import { SET_TOKEN } from "../../redux/actions";
+import { setToken } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 
 const SignInContent = () => {
@@ -13,7 +13,7 @@ const SignInContent = () => {
       event.target["username"].value,
       event.target["password"].value
     );
-    dispatch(SET_TOKEN(response.body.token));
+    dispatch(setToken(response.body.token));
     navigate("/user");
   };
 
