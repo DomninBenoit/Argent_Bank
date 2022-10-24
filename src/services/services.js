@@ -1,14 +1,15 @@
-const apiUrl = process.env.API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 /**
  * fetch for API data access and error handling
  * @param {object} url
  * @returns {object} data
  */
-async function customFetch(url) {
+async function customFetch(url, options) {
+  console.log(url);
   try {
-    const response = await fetch(url);
-    if (response.status >= 200 && response.status < 300) {
+    const response = await fetch(`${apiUrl}/api/v1${url}`, options);
+    if (response.status < 200 && response.status >= 300) {
       return new Error("Problème d'accès aux données de l'API");
     }
     return response.json();
@@ -24,14 +25,14 @@ async function customFetch(url) {
  * @returns token
  */
 export async function postLogin(email, password) {
-  const response = await fetch("http://localhost:3001/api/v1/user/login", {
+  const response = await customFetch(`/user/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
   });
-  return response.json();
+  return response;
 }
 
 /**
@@ -43,17 +44,14 @@ export async function postLogin(email, password) {
  * @returns id and email
  */
 export async function postSignup(email, password, firstName, lastName) {
-  const response = await customFetch(
-    "http://localhost:3001/api/v1/user/signup",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password, firstName, lastName }),
-    }
-  );
-  return response.json();
+  const response = await customFetch("/user/signup", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password, firstName, lastName }),
+  });
+  return response;
 }
 
 /**
@@ -62,14 +60,14 @@ export async function postSignup(email, password, firstName, lastName) {
  * @returns profile data
  */
 export async function postProfile(token) {
-  const response = await fetch(`http://localhost:3001/api/v1/user/profile`, {
+  const response = await customFetch(`/user/profile`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
-  return response.json();
+  return response;
 }
 
 /**
@@ -78,16 +76,13 @@ export async function postProfile(token) {
  * @returns data update
  */
 export async function putProfile(token, payload) {
-  const response = await fetch(`http://localhost:3001/api/v1/user/profile`, {
+  const response = await customFetch(`/user/profile`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
-      body: JSON.stringify({
-        firstName: payload.firstName,
-        lastName: payload.lastName,
-      }),
     },
+    body: JSON.stringify(payload),
   });
-  return response.json();
+  return response;
 }

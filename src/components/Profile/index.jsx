@@ -11,15 +11,25 @@ const Profile = () => {
   const user = useSelector(getUserName);
   const dispatch = useDispatch();
   const [displayUser, setDisplayUser] = useState(false);
-  const updateUser = async (event) => {
+
+  const updateUser = (event) => {
     event.preventDefault();
-    user.firstname = event.target["firstname"].value;
-    user.lastname = event.target["lastname"].value;
-    putProfile(token, user);
-    dispatch(setProfile(user));
-    console.log(user);
+    const userName = {
+      firstName: event.target["firstname"].value,
+      lastName: event.target["lastname"].value,
+    };
+    putProfile(token, userName)
+      .then((response) => {
+        console.log(response);
+        dispatch(setProfile(response.body));
+      })
+      .catch((error) => {
+        alert(error);
+      });
+
     closeModifyUser();
   };
+
   const openModifyUser = () => {
     setDisplayUser(true);
   };
@@ -49,24 +59,28 @@ const Profile = () => {
           className="formModifyUser"
           onSubmit={(event) => updateUser(event)}
         >
-          <Input
-            type="text"
-            name="firstname"
-            classname="input-profile"
-            placeholder={user.firstname}
-          />
-          <Input
-            type="text"
-            name="lastname"
-            classname="input-profile"
-            placeholder={user.lastname}
-          />
-          <button className="button-modify-user" type="submit">
-            Save
-          </button>
-          <button className="button-modify-user" onClick={closeModifyUser}>
-            Cancel
-          </button>
+          <div className="list-input">
+            <Input
+              type="text"
+              name="firstname"
+              classname="input-profile"
+              placeholder={user.firstname}
+            />
+            <Input
+              type="text"
+              name="lastname"
+              classname="input-profile"
+              placeholder={user.lastname}
+            />
+          </div>
+          <div className="list-button-update">
+            <button className="button-modify-user" type="submit">
+              Save
+            </button>
+            <button className="button-modify-user" onClick={closeModifyUser}>
+              Cancel
+            </button>
+          </div>
         </form>
       )}
     </div>

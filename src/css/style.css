@@ -107,6 +107,33 @@ body {
   font-size: 0.9rem;
 }
 
+.list-input,
+.list-button-update {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#firstname,
+#lastname {
+  width: 150px;
+  height: 30px;
+  margin: 0 10px 0 10px;
+  padding-left: 10px;
+  color: gray;
+  border-color: gray;
+  border-radius: 5px;
+}
+
+.button-modify-user {
+  width: 100px;
+  height: 30px;
+  margin: 10px 10px 0 10px;
+  color: blue;
+  border-color: blue;
+  border-radius: 5px;
+}
+
 @media (min-width: 920px) {
   .hero {
     height: 400px;
@@ -295,4 +322,12 @@ body {
   .transaction-button {
     width: 200px;
   }
+}
+
+.login {
+  display: none;
+}
+.errorLogin {
+  display: block !important;
+  color: red;
 }

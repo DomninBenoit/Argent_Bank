@@ -12,9 +12,13 @@ const User = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (token) {
-      postProfile(token).then((response) => {
-        dispatch(setProfile(response.body));
-      });
+      postProfile(token)
+        .then((response) => {
+          dispatch(setProfile(response.body));
+        })
+        .catch((error) => {
+          alert(error);
+        });
     }
   });
   return (

@@ -7,14 +7,16 @@ import { useNavigate } from "react-router-dom";
 const SignInContent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const response = await postLogin(
-      event.target["username"].value,
-      event.target["password"].value
-    );
-    dispatch(setToken(response.body.token));
-    navigate("/user");
+    postLogin(event.target["username"].value, event.target["password"].value)
+      .then((response) => {
+        dispatch(setToken(response.body.token));
+        navigate("/user");
+      })
+      .catch((error) => {
+        alert(error);
+      });
   };
 
   return (
